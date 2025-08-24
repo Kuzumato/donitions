@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tip / Donate — Select eWallet</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Tip / Donate</h1>
+    <p class="lead">Choose an e-wallet below. We'll try to open the app. If it doesn't open, you'll get a large QR you can save or copy the account number.</p>
+
+    <div id="providers" class="providers"></div>
+
+    <footer>
+      <small>Powered by your tip page · <a href="#" id="edit-link">edit</a></small>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close" id="modalClose" aria-label="Close">×</button>
+      <h2 id="modalTitle">Provider</h2>
+      <img id="modalQR" src="" alt="QR code" />
+      <div class="modal-actions">
+        <a id="downloadQR" class="btn" download>Download QR</a>
+        <button id="copyAccount" class="btn">Copy account</button>
+        <a id="openApp" class="btn primary" href="#" target="_blank" rel="noopener">Open in app</a>
+      </div>
+      <p class="hint">If the app doesn't open, long-press the QR to save or use the copied account number in your app.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
