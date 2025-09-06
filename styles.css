@@ -1,76 +1,217 @@
-:root{
-  --bg:#f7f9fb;
-  --card:#ffffff;
-  --accent:#0077ff;
-  --muted:#666;
-  --maxw:640px;
+:root {
+  --bg: linear-gradient(135deg, #eaf6ff 0%, #f7fbff 100%);
+  --card: #ffffff;
+  --accent: #0077ff;
+  --accent-dark: #005fbe;
+  --muted: #6a7a8c;
+  --maxw: 480px;
+  --shadow: 0 8px 32px rgba(60, 80, 120, 0.12);
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  background:var(--bg);
-  color:#111;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background: var(--bg);
+  color: #26334d;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.container{
-  max-width:var(--maxw);
-  margin:28px auto;
-  padding:20px;
-  background:var(--card);
-  border-radius:12px;
-  box-shadow:0 6px 18px rgba(18,24,40,0.06);
+
+.container {
+  max-width: var(--maxw);
+  margin: 48px auto 0 auto;
+  padding: 32px 28px 24px 28px;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
 }
-h1{margin:0 0 8px;font-size:20px}
-.lead{margin:0 0 18px;color:var(--muted)}
-.providers{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  letter-spacing: 0.5px;
 }
-.btn-provider{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 14px;
-  border-radius:10px;
-  border:1px solid #e6eef9;
-  background:#fff;
-  min-width:160px;
-  cursor:pointer;
-  text-decoration:none;
-  color:inherit;
-  box-shadow:0 1px 0 rgba(0,0,0,0.02);
+
+.lead {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 1.08rem;
 }
-.btn-provider img{width:36px;height:36px;border-radius:8px;object-fit:cover}
-.provider-meta{display:flex;flex-direction:column}
-.provider-name{font-weight:600}
-.provider-sub{font-size:13px;color:var(--muted)}
-footer{margin-top:18px;color:var(--muted);font-size:13px}
-footer a{color:var(--accent);text-decoration:none}
+
+.providers {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.provider-card {
+  background: #f4f7fb;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(60, 80, 120, 0.07);
+  padding: 18px 22px;
+  cursor: pointer;
+  min-width: 140px;
+  max-width: 180px;
+  text-align: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid #e6eef9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.provider-card:hover, .provider-card:focus {
+  box-shadow: 0 4px 16px rgba(60, 80, 120, 0.13);
+  transform: translateY(-2px) scale(1.03);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.provider-logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #e3e7ed;
+  box-shadow: 0 1px 4px rgba(60, 80, 120, 0.07);
+}
+
+.provider-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.provider-name {
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: var(--accent-dark);
+  margin-bottom: 2px;
+}
+
+.provider-sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
 
 /* Modal */
-.modal{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(12,18,30,0.45);
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 18, 30, 0.45);
+  z-index: 100;
 }
-.modal[aria-hidden="false"]{display:flex}
-.modal-content{
-  background:var(--card);
-  padding:18px;
-  border-radius:12px;
-  width:min(92%,480px);
-  text-align:center;
-  position:relative;
+
+.modal[aria-hidden="false"] {
+  display: flex;
 }
-.modal-content img{width:260px;height:260px;object-fit:contain;border-radius:8px;background:#fff;margin:8px 0}
-.modal-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}
-.btn{padding:10px 12px;border-radius:8px;border:1px solid #e6eef9;background:#fff;text-decoration:none;color:inherit;cursor:pointer}
-.btn.primary{background:var(--accent);color:#fff;border-color:transparent}
-.close{position:absolute;right:8px;top:8px;border:none;background:transparent;font-size:18px;cursor:pointer}
-.hint{color:var(--muted);font-size:13px;margin-top:10px}
+
+.modal-content {
+  background: var(--card);
+  padding: 32px 28px 24px 28px;
+  border-radius: 16px;
+  width: min(92%, 420px);
+  text-align: center;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.modal-content img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #fff;
+  margin: 18px 0 12px 0;
+  box-shadow: 0 2px 8px rgba(60, 80, 120, 0.07);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid #e6eef9;
+  background: #f4f7fb;
+  color: var(--accent-dark);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  display: inline-block;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn:hover, .btn:focus {
+  background: #e3e7ed;
+  color: #2a3a5b;
+  border-color: var(--accent);
+  outline: none;
+}
+
+.btn.primary:hover, .btn.primary:focus {
+  background: var(--accent-dark);
+}
+
+.close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover, .close:focus {
+  color: var(--accent);
+  outline: none;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.98rem;
+  margin-top: 10px;
+}

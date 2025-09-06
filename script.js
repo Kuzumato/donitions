@@ -23,24 +23,23 @@ const providers = [
     qr: 'qrs/qrmaya.jpg',
     uri: 'maya://pay?recipient=09272237615'
   },
-  // Add more providers here...
   {
     id: 'gotyme',
     name: 'GOTYME',
     subtitle: 'Gotyme Bank',
     account: '09272237615',
     qr: 'qrs/qrgotyme.jpg',
-    uri: 'gotyme://(unlikely to be public)'
+    uri: 'gotyme://pay?recipient=09272237615'
   },
-
   {
     id: 'ladnbank',
     name: 'LANDBANK',
     subtitle: 'Landbank',
     account: '09272237615',
     qr: 'qrs/qrlandbank.jpg',
-    uri: 'landbank://(usually not available)'
+    uri: 'landbank://pay?recipient=09272237615'
   }
+// Add more providers here...
  ];
 
 const providersEl = document.getElementById('providers');
@@ -67,6 +66,26 @@ function createProviderButton(p){
   return a;
 }
 
+function createProviderCard(p){
+  const card = document.createElement('div');
+  card.className = 'provider-card';
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `Select ${p.name}`);
+  card.innerHTML = `
+    <img src="${p.qr}" alt="${p.name} QR" class="provider-logo" onerror="this.style.display='none'"/>
+    <div class="provider-meta">
+      <div class="provider-name">${p.name}</div>
+      <div class="provider-sub">${p.subtitle}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => onProviderClick(p));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') onProviderClick(p);
+  });
+  return card;
+}
+
 function onProviderClick(p){
   // Try to open the app via URI if provided
   if(p.uri){
@@ -83,13 +102,29 @@ function showModal(p){
   modal.setAttribute('aria-hidden', 'false');
   modalTitle.textContent = p.name;
   modalQR.src = p.qr;
+  modalQR.alt = `${p.name} QR code`;
   downloadQR.href = p.qr;
   downloadQR.setAttribute('download', `${p.id}-qr.png`);
   copyAccountBtn.onclick = () => {
     copyToClipboard(p.account);
   };
-  openAppBtn.style.display = p.uri ? 'inline-block' : 'none';
-  openAppBtn.href = p.uri || '#';
+  if (p.uri) {
+    openAppBtn.style.display = 'inline-block';
+    openAppBtn.href = p.uri;
+    openAppBtn.textContent = `Open ${p.name} app`;
+    openAppBtn.onclick = (e) => {
+      e.preventDefault();
+      // Try to open the app, fallback to maintenance page
+      tryOpenUri(p.uri, () => {
+        window.location.href = 'not-yet-avilable.html';
+      });
+    };
+  } else {
+    openAppBtn.style.display = 'inline-block';
+    openAppBtn.href = 'not-yet-avilable.html';
+    openAppBtn.textContent = 'Open in app';
+    openAppBtn.onclick = null;
+  }
 }
 
 // Close modal handlers
@@ -146,7 +181,7 @@ function tryOpenUri(uri, fallback){
 
 // Populate UI
 providers.forEach(p => {
-  providersEl.appendChild(createProviderButton(p));
+  providersEl.appendChild(createProviderCard(p));
 });
 
 // A small helper for edit link (optional)
