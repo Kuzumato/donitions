@@ -27,7 +27,7 @@ const providers = [
     id: 'gotyme',
     name: 'GOTYME',
     subtitle: 'Gotyme Bank',
-    account: '09272237615',
+    account: '013331792891',
     qr: 'qrs/qrgotyme.jpg',
     uri: 'gotyme://pay?recipient=09272237615'
   },
@@ -35,7 +35,7 @@ const providers = [
     id: 'ladnbank',
     name: 'LANDBANK',
     subtitle: 'Landbank',
-    account: '09272237615',
+    account: '0146462677',
     qr: 'qrs/qrlandbank.jpg',
     uri: 'landbank://pay?recipient=09272237615'
   }
@@ -185,4 +185,5 @@ providers.forEach(p => {
 });
 
 // A small helper for edit link (optional)
+
 document.getElementById('edit-link').href = location.href;
