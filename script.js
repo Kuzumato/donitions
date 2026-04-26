@@ -185,6 +185,4 @@ providers.forEach(p => {
 });
 
 // A small helper for edit link (optional)
-
-document.getElementById('edit-link').href = https://kuzumato.github.io/profile/#;
-
+document.getElementById('edit-link').href = location.href;
